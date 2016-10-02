@@ -8,9 +8,9 @@ document.body.appendChild(renderer.domElement);
 
 loader = new THREE.ColladaLoader();
 loader.load('modele/cube.dae', function colladaReady(collada) {
-    player = collada.scene;
+    cube = collada.scene;
     skin = collada.skins[0];
-    scene.add(player);
+    scene.add(cube);
 });
 
 camera.position.z = 5;
@@ -19,8 +19,7 @@ function render() {
     requestAnimationFrame(render);
     renderer.render(scene, camera);
 
-    //cube.rotation.x += 0.1;
-    //cube.rotation.y += 0.1;
+
 }
 render();
 
