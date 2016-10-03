@@ -50,10 +50,10 @@ function init() {
 		dae.position.set(0,0,0);
 		dae.scale.set(1.5,1.5,1.5);
 		scene.add(dae);
-
+		
+		/*Ajout du control à la souris*/
     controls = new THREE.TrackballControls( camera );
-    controls.addEventListener('change', render);
-		controls.rotateSpeed = 10.0;
+		controls.rotateSpeed = 50.0;
 		controls.zoomSpeed = 1.2;
 		controls.panSpeed = 0.8;
 		controls.noZoom = false;
@@ -61,12 +61,13 @@ function init() {
 		controls.staticMoving = true;
 		controls.dynamicDampingFactor = 0.3;
 		controls.keys = [65, 83, 68];
+		controls.addEventListener('change', render);
+
   	scene = new THREE.Scene();
-		/* Ajouter des aides : les axes et une grille
-		var axes = new THREE.AxisHelper(50);
-		axes.position = dae.position;
-		scene.add(axes);
-		var gridXZ = new THREE.GridHelper(100, 10);
+		/* Ajouter des aides : les axes et une grille*/
+		var axisHelper = new THREE.AxisHelper(5);//Crée les axes x y z
+		scene.add(axisHelper);//On ajoute les axes
+		/*var gridXZ = new THREE.GridHelper(100, 10);
 		gridXZ.setColors( new THREE.Color(0x8f8f8f), new THREE.Color(0x8f8f8f);
 		gridXZ.position.set(0,0,0 );
 		scene.add(gridXZ);*/
