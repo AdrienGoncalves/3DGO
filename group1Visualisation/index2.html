@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>3D GO</title>
+    <meta charset="utf-8">
+	<link rel="stylesheet" href="stylesheet.css"/>
+    <link rel="icon" type="image/ico" href="Images/logo_le2i.png"/>
+    <script src="js/three.js"></script>
+    <script src="js/ColladaLoader.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/TrackballControls.js"></script>
+	<script src="js/CanvasRenderer.js"></script>
+	<script src="js/stats.min.js"></script>
+	<script src="js/Projector.js"></script>
+</head>
+
+<body>
+	<script type="text/javascript" src="interface.js"></script>
+	<div id="menu">
+        <nav>
+			<img src="Images/logo_iutdijon.png" /><br/><br/>
+			
+			<div id="boutons">
+					<input type="file" enctype="multipart/form-data" onclick="addCollada()" value="Ajouter fichier Collada"/></input><br/><br/>
+					<input type="button" onclick="tutoriel()" value="Tuoriel"/></input><br/><br/>
+					<input type="button" onclick="resetCamera()" value="Reset Camera"/></input><br/><br/>
+            </div>	
+			
+			<div id="boutons_mode">
+					<button type="button" style="background:grey; cursor:pointer; border:solid 1px black;" onclick="outMode()"> 
+					  <img src="Images/outdoor.png" alt="outdoor" /> 
+					</button> 
+					<button type="button" style="background:grey; cursor:pointer; border:solid 1px black;" onclick="inMode()"> 
+					  <img src="Images/indoor.png" alt="indoor" /> 			
+            </div>	
+        </nav>	
+    </div>
+	<script id="zoneRendu" src="script.js"></script>
+</body>
+
+</html>
