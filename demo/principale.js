@@ -3,7 +3,7 @@ var views, scene, renderer;
 var mesh, group1, group2, group3, light;
 var mouseX = 0, mouseY = 0;
 var windowWidth, windowHeight;
-var views = [
+var views = [ // gestion des différentes vues sur la scène
     { //1
         left: 0,
         bottom: 0,
@@ -12,7 +12,7 @@ var views = [
         background: new THREE.Color().setRGB(0.5, 0.5, 0.7),
         eye: [1800, 600, 300],
         up: [0, 1, 0],
-        fov: 30,
+        fov: 41.5, // verticale fov
         updateCamera: function (camera, scene, mouseX, mouseY) {
             camera.position.x += mouseX * 0.05;
             camera.position.x = Math.max(Math.min(camera.position.x, 2000), -2000);
@@ -28,7 +28,7 @@ var views = [
         background: new THREE.Color().setRGB(0.8, 0.6, 0.7),
         eye: [800, 800, 300],
         up: [0, 1, 0],
-        fov: 50,
+        fov: 41.5,
         updateCamera: function (camera, scene, mouseX, mouseY) {
             camera.position.y -= mouseX * 0.05;
             camera.position.y = Math.max(Math.min(camera.position.y, 1600), -1600);
@@ -44,7 +44,7 @@ var views = [
         background: new THREE.Color().setRGB(0.6,0.7, 0.8),
         eye: [700, 1200, 1500],
         up: [0, 1, 0],
-        fov: 30,
+        fov: 41.5,
         updateCamera: function (camera, scene, mouseX, mouseY) {
             camera.position.y -= mouseX * 0.05;
             camera.position.y = Math.max(Math.min(camera.position.y, 3000), -3000);
@@ -60,7 +60,7 @@ var views = [
         background: new THREE.Color().setRGB(0.5, 0.8,0.6),
         eye: [140, 200, 95],
         up: [0, 1, 0],
-        fov: 30,
+        fov: 41.5,
         updateCamera: function (camera, scene, mouseX, mouseY) {
             camera.position.y -= mouseX * 0.05;
             camera.position.y = Math.max(Math.min(camera.position.y, 1600), -1600);
@@ -75,7 +75,7 @@ var views = [
          background: new THREE.Color().setRGB(0.7,0.8,0.4),
          eye: [2400, 600, 200],
          up: [0, 1, 0],
-         fov: 30,
+         fov: 41.5,
          updateCamera: function (camera, scene, mouseX, mouseY) {
              camera.position.y -= mouseX * 0.05;
              camera.position.y = Math.max(Math.min(camera.position.y, 1600), -1600);
@@ -98,11 +98,15 @@ function init() {
         camera.up.z = view.up[2];
         view.camera = camera;
     }
+
+    /* Création de la scène */
     scene = new THREE.Scene();
+
+    /* Ajout de la lumière */
     light = new THREE.DirectionalLight(0xffffff);
     light.position.set(0, 0, 1);
     scene.add(light);
-    // shadow
+   
     var canvas = document.createElement('canvas');
     canvas.width = 128;
     canvas.height = 128;
@@ -112,9 +116,13 @@ function init() {
     gradient.addColorStop(1, 'rgba(0,0,0,0)');
     context.fillStyle = gradient;
     context.fillRect(0, 0, canvas.width, canvas.height);
+
+    /* texture du cube */
     var shadowTexture = new THREE.CanvasTexture(canvas);
     var shadowMaterial = new THREE.MeshBasicMaterial({ map: shadowTexture, transparent: true });
     var shadowGeo = new THREE.PlaneBufferGeometry(300, 300, 1, 1);
+
+    /* Ajout du cube */
     var geometry = new THREE.CubeGeometry(100, 100, 100); // forme 
     var material = new THREE.MeshNormalMaterial();  //material
     var cube = new THREE.Mesh(geometry, material); //init cube
@@ -123,7 +131,9 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     
-    document.body.appendChild(renderer.domElement);
+
+
+    document.body.appendChild(renderer.domElement); // ajout de la scène à la page web
   
    
 }
@@ -131,7 +141,7 @@ function onDocumentMouseMove(event) {
     mouseX = (event.clientX - windowWidth / 2);
     mouseY = (event.clientY - windowHeight / 2);
 }
-function updateSize() {
+function updateSize() { //redimensionnement de l'affichage si les dimensions de la fenêtre web changent
     if (windowWidth != window.innerWidth || windowHeight != window.innerHeight) {
         windowWidth = window.innerWidth;
         windowHeight = window.innerHeight;
