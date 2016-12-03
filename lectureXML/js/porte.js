@@ -14,6 +14,13 @@ function Porte(x,y,z,code) {
 //prototype, liste des méthodes
 Porte.prototype = {
 
+    getId:function getId() {
+        return this.code;
+    },
+
+    getArretes:function getArretes() {
+        return this.listeArretes;
+    },
 	/* Permet de mettre en place une arrête entre une porte et la porte courante
 	en précisant le poids de l'arrête */
     lierAvecPoids: function lierAvecPoids(porte,poids) {
