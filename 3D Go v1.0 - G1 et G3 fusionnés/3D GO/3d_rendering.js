@@ -1,5 +1,6 @@
 /**
- * Script javascript qui contiendra les initialisations des caméras et des élements 3D 
+ * Script javascript qui contiendra les initialisations des caméras et des élements 3D
+ * @author Maël Le Goff
  */
 	var container;
 	var width;
@@ -19,6 +20,21 @@
 	var vueInfosNode;
 	
 	var marker;
+	
+	var result;
+	$.ajax( { //Création de l'objet AJAX
+            type: "GET",
+            async: false,
+            url: 'collada/collada.dae',
+            dataType: "xml",
+            success: function(data) {
+              result = data;
+            }
+        });
+		
+	var	right = new THREE.Vector3();
+	var	up = new THREE.Vector3();
+	var	at = new THREE.Vector3();
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	initContainer();
@@ -44,14 +60,15 @@
 		container.setAttribute("id", "rendererArea");
 		document.body.appendChild(container);*/
 		container=document.getElementById('dessein');
+		//document.body.appendChild(container);
 		width = container.clientWidth;
 		height = container.clientHeight;
 	}
 	
 	/*On determine les zone ou afficher les informations*/
 	function initInformations() {	
-		generalInfosNode = document.getElementById('menu3'); //Le menu "Informations général"
-		vueInfosNode = document.getElementById('menu4'); //Le menu "Informations sur la vue");
+		generalInfosNode = document.getElementById('nav1'); //Le menu "Informations général"
+		vueInfosNode = document.getElementById('nav2'); //Le menu "Informations sur la vue");
 	}
 	
 	/*Initialisation de la scène et d'une camera*/
@@ -166,17 +183,16 @@
 		var x = ( (event.clientX-container.offsetLeft)/ width ) * 2 - 1;
 		var y = - ( event.clientY / height ) * 2 + 1;
 		
-		// Now we set our direction vector to those initial values
+		//Définition de notre vecteur de direction à ces valeurs initiales
 		directionVector.set(x, y, 1);
 
-		// Unproject the vector
+		//Ne pas projeter
 		projector.unprojectVector(directionVector, camera);
 
-		// Substract the vector representing the camera position
+		//Soustraire le vecteur représentant la position de la caméra
 		directionVector.sub(camera.position);
 
-		// Normalize the vector, to avoid large numbers from the
-		// projection and substraction
+		//Permet de normalisé le vecteur, pour éviter de grands nombres de la projection et de la soustraction
 		directionVector.normalize();
 
 		// On initialise le lancer de rayon (raycaster)
@@ -199,13 +215,60 @@
 	
 	/*Fonction qui affiche les informations spécifiques à l'élément du fichier séléctionné dans les menus*/
 	function displayInformations(intersects) {
+
+		/*Parcourir le  fichier collada à la recherche de la balise création*/
+		var creation_temp = '';
+		var creation = '';
+		var creation_temp = $(result).find('created').text();
+		if (creation_temp != '') {
+			creation = creation_temp.replace("T", " à ");
+		}
+		
 		var target = intersects[0].object;
-		generalInfosNode.innerHTML = 'ID: ' + target.id + '<br>' +
-									 'Nom de la scène: ' + target.name + '<br>' +
-									 'Description: ' + target.description + '<br>' +
-									 'Date de création: ' + target.created + '<br>' +
-									 'Dimension: ' + target.dimension + '</br>' +
-									 'Auteur: ' + target.authoring_tool;
+		generalInfosNode.innerHTML = '<h2>ID: ' + target.id + '</h2>' +
+									 '<h2>Date de création: ' + creation + '</h2>';
+	}
+	
+	/*Fonction appelée depuis l'interface qui permet de zoomer*/
+	function zoomIn() {
+		camera.matrix.extractBasis(right,up,at);
+        camera.position.add(at.multiplyScalar(-5));
+        camera.matrix.extractBasis(right,up,at);
+	}
+	
+	/*Fonction appelée depuis l'interface qui permet de dézoomer*/
+	function zoomOut() {
+		camera.matrix.extractBasis(right,up,at);
+        camera.position.add(at.multiplyScalar(+5));
+        camera.matrix.extractBasis(right,up,at); 
+	}
+
+	/*Fonction appelée depuis l'interface qui permet de faire une rotation vers le haut*/
+	function moveUp() {
+		camera.matrix.extractBasis(right,up,at);
+		camera.position.add(up.multiplyScalar(5));
+        camera.matrix.extractBasis(right,up,at);  
+	}
+	
+	/*Fonction appelée depuis l'interface qui permet de faire une rotation vers la gauche*/
+	function moveLeft() {
+		camera.matrix.extractBasis(right,up,at);
+        camera.position.add(right.multiplyScalar(-5));
+        camera.matrix.extractBasis(right,up,at); 
+	}
+
+	/*Fonction appelée depuis l'interface qui permet de faire une rotation vers la droite*/
+	function moveRight() {
+		camera.matrix.extractBasis(right,up,at);
+		camera.position.add(right.multiplyScalar(5));
+        camera.matrix.extractBasis(right,up,at); 
+	}
+
+	/*Fonction appelée depuis l'interface qui permet de faire une rotation vers le bas*/
+	function moveDown() {
+		camera.matrix.extractBasis(right,up,at);
+		camera.position.add(up.multiplyScalar(-5));
+        camera.matrix.extractBasis(right,up,at); 
 	}
 
 	function animate(){

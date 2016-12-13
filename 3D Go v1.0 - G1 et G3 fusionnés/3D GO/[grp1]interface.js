@@ -1,30 +1,7 @@
 /**
-* Fichier contenant toutes les fonctionnalités liés à l'interface
+* Fichier contenant les fonctionnalités liés à l'interface
+* @author Maël Le Goff
 */
-
-function zoomIn() {
-    alert("Zoom +"); 
-}
-
-function zoomOut() {
-    alert("Zoom -"); 
-}
-
-function moveUp() {
-	alert("UP !"); 
-}
-
-function moveLeft() {
-	alert("LEFT !"); 
-}
-
-function moveRight() {
-	alert("RIGHT !"); 
-}
-
-function moveDown() {
-	alert("DOWN !"); 
-}
 
 function tutoriel() {
      alert("Tutoriel"); 
