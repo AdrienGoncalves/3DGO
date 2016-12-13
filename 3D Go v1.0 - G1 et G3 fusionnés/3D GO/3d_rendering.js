@@ -104,7 +104,7 @@
 	function initCollada() {
 		var loader = new THREE.ColladaLoader();
 		loader.options.convertUpAxis = true;
-		loader.load( 'collada/collada.dae', function ( collada ) {
+		loader.load( 'collada/Le2i.dae', function ( collada ) {
 			
 			var dae = collada.scene;
 			
