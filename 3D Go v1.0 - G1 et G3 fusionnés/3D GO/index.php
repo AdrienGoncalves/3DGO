@@ -29,7 +29,7 @@
 <body>
 
 	<div class="menuGauche">
-		<div class="menu" id="menu1" style="height:65%;">
+		<div class="menu1" id="menu1">
 			<nav>
 				<h1>Déplacement</h1>
 				
@@ -38,7 +38,7 @@
 					<img src="Images/zoom_out.png" width="50" height="50" style="cursor: pointer;" onclick="zoomOut()"/>
 				</div>
 				<div id="rightImage">
-					<img src="Images/directional_arrows.png"width="100" height="100" alt="move" usemap="#direction" />
+					<img src="Images/directional_arrows.png" width="100" height="100" alt="move" usemap="#direction" />
 						<map name="direction">
 						  <area shape="rect" coords="65,0,35,38" onClick="moveUp()" alt="UP"/>
 						  <area shape="rect" coords="38,35,0,65" onClick="moveLeft()" alt="LEFT" />
@@ -146,7 +146,7 @@
 				</div>
 
 		</div>
-		<div class="menu" id="menu2" style="position: relative; height:35%;">
+		<div class="menu2" id="menu2">
 			<nav>
 				<h1>Actions</h1>
 				<br/>
@@ -197,10 +197,12 @@
 		</div>
 	</div>
 
-	
+	<div class="centre" id="dessein">
+		
+	</div>
 	
 	<div class="menuDroite">
-		<div class="menu" id="menu3" style="height:60%;">
+		<div class="menu3" id="menu3">
 			<nav>		
 				<!-- <h1>Informations général</h1> -->
 				
@@ -214,7 +216,7 @@
 				
 			</nav>	
 		</div>
-		<div class="menu" id="menu4" style="height:40%;">
+		<div class="menu4" id="menu4">
 			<!-- <nav>		 -->
 				<!-- <h1>Informations sur la vue</h1> -->
 				
@@ -230,5 +232,6 @@
 	
 	
 	<script src="3d_rendering.js"></script>
+
 </body>
 </html>

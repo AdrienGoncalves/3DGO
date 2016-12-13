@@ -93,6 +93,6 @@ GrapheManager.prototype = {
           res+='\n';
       }
       return res;
-      },
+    },
 
 };

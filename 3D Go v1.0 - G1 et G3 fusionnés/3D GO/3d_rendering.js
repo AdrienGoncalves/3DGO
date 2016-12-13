@@ -40,11 +40,11 @@
 	
 	/*On determine le conteneur du rendu et sa taille*/
 	function initContainer() {	
-		container = document.createElement('div');
+		/*container = document.createElement('div');
 		container.setAttribute("id", "rendererArea");
-		document.body.appendChild(container);
-		
-		width = container.clientWidth-container.offsetLeft;
+		document.body.appendChild(container);*/
+		container=document.getElementById('dessein');
+		width = container.clientWidth;
 		height = container.clientHeight;
 	}
 	
@@ -79,7 +79,7 @@
      */
 	function initControls() {	
 		controls = new THREE.TrackballControls( camera,container );	
-			controls.rotateSpeed = 7.0;
+			controls.rotateSpeed = 2.0;
 			controls.zoomSpeed = 1.2;
 			controls.panSpeed = 0.8;
 			controls.noZoom = false;
@@ -104,7 +104,7 @@
 	function initCollada() {
 		var loader = new THREE.ColladaLoader();
 		loader.options.convertUpAxis = true;
-		loader.load( 'collada/Le2i.dae', function ( collada ) {
+		loader.load( 'collada/collada.dae', function ( collada ) {
 			
 			var dae = collada.scene;
 			
@@ -148,9 +148,10 @@
 
 	/*Fonction qui redimensionne la scene quand on redimensionne la fenêtre */
 	function onWindowResize() {
+		width = container.clientWidth; //pour que le menu de droite reste affiché
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
-		width = container.clientWidth-container.offsetLeft; //pour que le menu de droite reste affiché
+		
 		renderer.setSize( width, height );
 	}
 
