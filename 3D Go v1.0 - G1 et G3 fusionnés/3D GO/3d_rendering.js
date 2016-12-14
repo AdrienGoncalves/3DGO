@@ -76,9 +76,15 @@
 		scene = new THREE.Scene();
 		scene.background = new THREE.Color( 0x808080 ); //couleur de fond du rendu
 		
-		camera = new THREE.PerspectiveCamera( 70, width / height, 1, 10000 );
-		camera.position.set(185,185,120);
+		camera = new THREE.PerspectiveCamera( 48.8, width / height, 1, 10000 ); //Caractéristiques de la caméra
+		camera.position.set(185,185,120); //Position de la caméra
 		scene.add(camera);
+	}
+
+	/** Permet de changer les caractéristiques de la caméra*/
+	function changeCam(x1, y1, z1, x2, y2, z2){
+		camera.position.set(x1,y1,z1); //Position de la caméra
+		controls.target = (new THREE.Vector3(x2,y2,z2)); //Orientation de la caméra
 	}
 	
 	/*Initialisation des lumières */
@@ -104,6 +110,7 @@
 			controls.staticMoving = true;
 			controls.dynamicDampingFactor = 0.3;
 			controls.keys = [65, 83, 68];
+			controls.target = (new THREE.Vector3(0,0,0)); //Orientation de la caméra
 		controls.addEventListener('change', render);
 	}
 	
@@ -278,7 +285,6 @@
 		render(delta);
 	}
 
-	function render(delta){			
-		camera.lookAt( scene.position );
+	function render(delta){
 		renderer.render( scene, camera );
 	}

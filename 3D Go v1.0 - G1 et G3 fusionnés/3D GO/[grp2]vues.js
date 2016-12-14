@@ -35,10 +35,19 @@ function changeVue() {
 
 /*Affiche le nom de la camera selectionnée*/
 function vueSelection(vueSelection,cameraName) {
-	alert('La '+vueSelection+'e vue affiche la '+cameraName); 
+	//alert('La '+vueSelection+'e vue affiche la '+cameraName);
+	if(cameraName == "Caméra 1")
+		changeCam(-3.9,10,-20,15,5,0);
+	if(cameraName == "Caméra 2")
+		changeCam(17.5,10,-20,1,5.5,-10);
 }
 
 /*Fonction pour rénitialiser la caméra*/
 function resetCamera() {
-     alert("Reset Camera"); 
+    //alert("Reset Camera");
+	changeCam(100,100,100,0,0,0);
+	document.getElementById('vueOne').checked = false;
+	document.getElementById('vueTwo').checked = false;
+	document.getElementById('vueThree').checked = false;
+	changeVue(); 
 }
