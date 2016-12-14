@@ -147,7 +147,7 @@
 	
 	/*Initialisation du rendu*/
 	function initRenderer() {
-		//jouter des aides : les axes et une grille
+		//Ajouter des aides : les axes et une grille
 		// var axes = new THREE.AxisHelper(50);
 		// axes.position.set(0,0,0);
 		// scene.add(axes);
