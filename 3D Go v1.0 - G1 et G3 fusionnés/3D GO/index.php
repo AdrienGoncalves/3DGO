@@ -204,29 +204,27 @@
 	<div class="menuDroite">
 		<div class="menu3" id="menu3">
 			<nav>		
-				<!-- <h1>Informations général</h1> -->
+				<h1>Informations général</h1>
+				<nav id="nav1">		
 				
-				<!-- <h2>Nom de la scène :<h2> -->
 				
-				<!-- <h2>Description :<h2> -->
 				
-				<!-- <h2>Date de création :<h2> -->
+			</nav>
 				
-				<!-- <h2>Dimension :<h2> -->
 				
 			</nav>	
 		</div>
 		<div class="menu4" id="menu4">
-			<!-- <nav>		 -->
-				<!-- <h1>Informations sur la vue</h1> -->
+			<nav>
+				<h1>Informations sur la vue</h1>
 				
-				<!-- <h2>Vue actuelle :<h2> -->
+				<nav id="nav2">		
 				
-				<!-- <h2>Coordonnées actuelles de la caméra :<h2> -->
 				
-				<!-- <h2>Champs de vision :<h2> -->
+				
+			</nav>
 
-			<!-- </nav>	 -->
+			</nav>
 		</div>
 	</div>
 	
