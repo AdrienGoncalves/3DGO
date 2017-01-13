@@ -1,0 +1,27 @@
+﻿<portes>
+	<porte id="1">
+		<posX>1</posX>
+		<posY>1</posY>
+		<posZ>1</posZ>
+	</porte>
+
+	<porte id="2">
+		<posX>4</posX>
+		<posY>2</posY>
+		<posZ>7</posZ>
+	</porte>
+
+	<porte id="3">
+		<posX>3</posX>
+		<posY>4</posY>
+		<posZ>2</posZ>
+	</porte>
+
+	<porte id="4">
+		<posX>4</posX>
+		<posY>2</posY>
+		<posZ>8</posZ>
+	</porte>
+	
+
+</portes>
