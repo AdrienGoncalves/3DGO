@@ -57,6 +57,7 @@
 							   <option>Caméra 2</option>
 							   <option>Caméra 3</option>
 							   <option>Caméra 4</option>
+							   <option>Caméra 5</option>
 							</select>
 						<br />					
 						<script>
@@ -78,6 +79,7 @@
 							   <option>Caméra 2</option>
 							   <option>Caméra 3</option>
 							   <option>Caméra 4</option>
+							   <option>Caméra 5</option>
 							</select>
 						</div>
 						<br />
@@ -100,6 +102,7 @@
 							   <option>Caméra 2</option>
 							   <option>Caméra 3</option>
 							   <option>Caméra 4</option>
+							   <option>Caméra 5</option>
 							</select>
 						</div>
 						<br />
