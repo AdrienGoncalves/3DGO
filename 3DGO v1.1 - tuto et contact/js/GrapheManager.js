@@ -1,4 +1,4 @@
-/** Classe permettant la transition entre données brut du fichier XML et le graphe 
+/** Classe permettant la transition entre les données brutes du fichier XML et le graphe 
   * @author Dylan Barquilla
   */
 
@@ -35,12 +35,14 @@ GrapheManager.prototype = {
           this.listePortes.push(liste[i]);
       }
 
-      this.connecterPorte();  //On connecte quelques portes
+      this.connecterPorte();  //On connecte quelques portes, ceci est un test et devra être ré-implémenter
 
     },
 
     /**
       * Méthode test, implémentation plus tardive selon le contenu des fichiers
+      * Cette méthode devra en effet faire les liens entre les portes, et elle sera implémentable complétement qu'une fois
+      * le contenu des fichiers XML déscrivant le bâtiment compris.
       */
     connecterPorte: function connecterPorte(chemin) {
       this.listePortes[0].lier(this.listePortes[2]);
@@ -49,13 +51,15 @@ GrapheManager.prototype = {
 
     /**
       * Le traitement des données du fichier XML : scan chaque porte en l'ajoutant à une liste
+      * Cette fonction devra être modifiée afin de prendre en compte les recherches faites sur le fichier XML décrivant le bâtiment
+      * La compréhension de la recherche dans un fichier XML via la méthode AJAX est impérative pour bien appliquer les recherches
       * return : la liste des portes 
       */
     traitement:function traitement(xml) {
       var balise = 'porte'; //Le noeud que l'on recherche
       var liste = [];       //La liste des portes, variables retournée
 
-      $(xml).find(balise).each(function() {
+      $(xml).find(balise).each(function() { //Le traitement pour chaque "noeud" trouvé dans le fichier XML
                                         var id = $(this).attr('id');          //On prend les valeurs qui nous intéressent
                                         var posX = $(this).find('posX').text();
                                         var posY = $(this).find('posY').text();
