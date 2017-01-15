@@ -2,289 +2,331 @@
  * Script javascript qui contiendra les initialisations des caméras et des élements 3D
  * @author Maël Le Goff
  */
-	var container;
-	var width;
-	var height;
-	
-	var camera, scene, controls, renderer;
-	
-	var plane; // le sol
-	
-	var clock = new THREE.Clock();
-	
-	var raycaster = new THREE.Raycaster();
-	var projector = new THREE.Projector();
-	var directionVector = new THREE.Vector3();
-	
-	var generalInfosNode;
-	var vueInfosNode;
-	
-	var marker;
-	
-	var result;
-	$.ajax( { //Création de l'objet AJAX
-            type: "GET",
-            async: false,
-            url: 'collada/collada.dae',
-            dataType: "xml",
-            success: function(data) {
-              result = data;
-            }
-        });
-		
-	var	right = new THREE.Vector3();
-	var	up = new THREE.Vector3();
-	var	at = new THREE.Vector3();
-	//////////////////////////////////////////////////////////////////////////////////////
+var container;
+var width;
+var height;
 
-	initContainer();
-	document.onload = initInformations();
-	initCameraScene();
-	initLights();
-	
-	initControls();
-	
-	initGround();
-	initCollada();
-	initMarker();
-	
-	initRenderer();
-	
-	animate();
-	
-	//////////////////////////////////////////////////////////////////////////////////////
-	
-	/*On determine le conteneur du rendu et sa taille*/
-	function initContainer() {	
-		/*container = document.createElement('div');
-		container.setAttribute("id", "rendererArea");
-		document.body.appendChild(container);*/
-		container=document.getElementById('dessein');
-		//document.body.appendChild(container);
-		width = container.clientWidth;
-		height = container.clientHeight;
-	}
-	
-	/*On determine les zone ou afficher les informations*/
-	function initInformations() {	
-		generalInfosNode = document.getElementById('nav1'); //Le menu "Informations général"
-		vueInfosNode = document.getElementById('nav2'); //Le menu "Informations sur la vue");
-	}
-	
-	/*Initialisation de la scène et d'une camera*/
-	function initCameraScene() {		
-		scene = new THREE.Scene();
-		scene.background = new THREE.Color( 0x808080 ); //couleur de fond du rendu
-		
-		camera = new THREE.PerspectiveCamera( 48.8, width / height, 1, 10000 ); //Caractéristiques de la caméra
-		camera.position.set(185,185,120); //Position de la caméra
-		scene.add(camera);
-	}
+var camera, scene, controls, renderer;
+var camera1, camera2, camera3, camera4, camera5;
+var numCam;
 
-	/** Permet de changer les caractéristiques de la caméra*/
-	function changeCam(x1, y1, z1, x2, y2, z2){
-		camera.position.set(x1,y1,z1); //Position de la caméra
-		controls.target = (new THREE.Vector3(x2,y2,z2)); //Orientation de la caméra
-	}
-	
-	/*Initialisation des lumières */
-	function initLights() {	
-		var ambientLight = new THREE.AmbientLight(0x606060);
-        scene.add(ambientLight);
-		
-        var directionalLight = new THREE.DirectionalLight(0xffffff);
-        directionalLight.position.set(1, 0.75, 0.5).normalize();
-        scene.add(directionalLight);
-	}
-	
-	/**Création d'un controleur de type trackball qui permettra d'effectuer
-     * des roation ainsi que des zooms à différente vitesses
-     */
-	function initControls() {	
-		controls = new THREE.TrackballControls( camera,container );	
-			controls.rotateSpeed = 2.0;
-			controls.zoomSpeed = 1.2;
-			controls.panSpeed = 0.8;
-			controls.noZoom = false;
-			controls.noPan = true; //pour que le clic droit ne serve à rien pour le trackball
-			controls.staticMoving = true;
-			controls.dynamicDampingFactor = 0.3;
-			controls.keys = [65, 83, 68];
-			controls.target = (new THREE.Vector3(0,0,0)); //Orientation de la caméra
-		controls.addEventListener('change', render);
-	}
-	
-	/*Initialisation d'un sol pour le rendu*/
-	function initGround() {
-		plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000, 10, 10), new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true }));
-        plane.name = 'Sol';
-		plane.position.set(0,0,0);
-		plane.rotation.x = 1.57;
-		plane.name = 'Sol';
-        scene.add(plane);
-	}
-	
-	/* Charger un fichier Collada */
-	function initCollada() {
-		var loader = new THREE.ColladaLoader();
-		loader.options.convertUpAxis = true;
-		loader.load( 'collada/collada.dae', function ( collada ) {
-			
-			var dae = collada.scene;
-			
-			dae.position = plane.position //on le pose sur le sol
-			dae.scale.set(1.5,1.5,1.5);
+var plane; // le sol
 
-			scene.add(dae);
-		});
-	}
-	
-	/*Definition du marqueur lorsqu'on clique*/
-	function initMarker() {
-		marker = new THREE.Mesh( new THREE.SphereGeometry(1), new THREE.MeshLambertMaterial( { color: 0xff0000 } ) );
-        scene.add(marker);
-	}
-	
-	/*Initialisation du rendu*/
-	function initRenderer() {
-		//Ajouter des aides : les axes et une grille
-		// var axes = new THREE.AxisHelper(50);
-		// axes.position.set(0,0,0);
-		// scene.add(axes);
-		// var gridXZ = new THREE.GridHelper(100, 10);
-		// gridXZ.position.set(0,0,0 );
-		// scene.add(gridXZ);
-		
-		//Rendu pour collada
-		renderer = new THREE.WebGLRenderer( { antialias: false } );
-			renderer.setPixelRatio( window.devicePixelRatio );
-			renderer.setSize( width, height );
-		container.appendChild( renderer.domElement );
-		
-		//Evenement lorsque que l'on clique sur le click droit de la souris dans le container
-		container.addEventListener( 'contextmenu', onDocumentRightClick, false );
+var clock = new THREE.Clock();
 
-		window.addEventListener( 'resize', onWindowResize, false );
-	}
-	
-	//////////////////////////////////////////////////////////////////////////////////////
+var raycaster = new THREE.Raycaster();
+var projector = new THREE.Projector();
+var directionVector = new THREE.Vector3();
+
+var generalInfosNode;
+var vueInfosNode;
+
+var marker;
+
+var result;
+$.ajax({ //Création de l'objet AJAX
+    type: "GET",
+    async: false,
+    url: 'collada/collada.dae',
+    dataType: "xml",
+    success: function(data) {
+        result = data;
+    }
+});
+
+var right = new THREE.Vector3();
+var up = new THREE.Vector3();
+var at = new THREE.Vector3();
+//////////////////////////////////////////////////////////////////////////////////////
+
+initContainer();
+document.onload = initInformations();
+initCameraScene();
+initLights();
+
+initControls();
+
+initGround();
+initCollada();
+initMarker();
+
+initRenderer();
+
+animate();
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+/*On determine le conteneur du rendu et sa taille*/
+function initContainer() {
+    /*container = document.createElement('div');
+    container.setAttribute("id", "rendererArea");
+    document.body.appendChild(container);*/
+    container = document.getElementById('dessein');
+    //document.body.appendChild(container);
+    width = container.clientWidth;
+    height = container.clientHeight;
+}
+
+/*On determine les zone ou afficher les informations*/
+function initInformations() {
+    generalInfosNode = document.getElementById('nav1'); //Le menu "Informations général"
+    vueInfosNode = document.getElementById('nav2'); //Le menu "Informations sur la vue");
+}
+
+/*Initialisation de la scène et d'une camera*/
+function initCameraScene() {
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x808080); //couleur de fond du rendu
+
+    camera = new THREE.PerspectiveCamera(48.8, width / height, 1, 10000); //Caractéristiques de la caméra
+    camera.position.set(185, 185, 120); //Position de la caméra
+    scene.add(camera);
+
+    camera1 = new THREE.PerspectiveCamera(48.8, width / height, 1, 10000);
+    camera1.position.set(-3.9, 10, -20);
+    camera1.lookAt(new THREE.Vector3(15, 5, 0));
+    scene.add(camera1);
+
+    camera2 = new THREE.PerspectiveCamera(48.8, width / height, 1, 10000);
+    camera2.position.set(7, 9.9, -7.9);
+    camera2.lookAt(new THREE.Vector3(-5, 3.5, -10));
+    scene.add(camera2);
+
+    camera3 = new THREE.PerspectiveCamera(48.8, width / height, 1, 10000);
+    camera3.position.set(37, 9.9, -7.7);
+    camera3.lookAt(new THREE.Vector3(30, 7.5, -10));
+    scene.add(camera3);
+
+    camera4 = new THREE.PerspectiveCamera(48.8, width / height, 1, 10000);
+    camera4.position.set(39, 10, -20);
+    camera4.lookAt(new THREE.Vector3(30, 5.5, -10));
+    scene.add(camera4);
+
+    camera5 = new THREE.PerspectiveCamera(48.8, width / height, 1, 10000);
+    camera5.position.set(17.5, 10, -20);
+    camera5.lookAt(new THREE.Vector3(1, 5.5, -10));
+    scene.add(camera5);
+}
+
+/** Permet de changer les caractéristiques de la caméra*/
+function changeCam(i) {
+    numCam = i;
+    if (numCam == -1) {
+        camera.position.set(185, 185, 120); //Position de la caméra
+        controls.keys = [65, 83, 68];
+        controls.target = (new THREE.Vector3(0, 0, 0));
+    }
+}
+
+/*Initialisation des lumières */
+function initLights() {
+    var ambientLight = new THREE.AmbientLight(0x606060);
+    scene.add(ambientLight);
+
+    var directionalLight = new THREE.DirectionalLight(0xffffff);
+    directionalLight.position.set(1, 0.75, 0.5).normalize();
+    scene.add(directionalLight);
+}
+
+/**Création d'un controleur de type trackball qui permettra d'effectuer
+ * des roation ainsi que des zooms à différente vitesses
+ */
+function initControls() {
+    controls = new THREE.TrackballControls(camera, container);
+    controls.rotateSpeed = 2.0;
+    controls.zoomSpeed = 1.2;
+    controls.panSpeed = 0.8;
+    controls.noZoom = false;
+    controls.noPan = true; //pour que le clic droit ne serve à rien pour le trackball
+    controls.staticMoving = true;
+    controls.dynamicDampingFactor = 0.3;
+    controls.keys = [65, 83, 68];
+    controls.target = (new THREE.Vector3(0, 0, 0)); //Orientation de la caméra
+    controls.addEventListener('change', render);
+}
+
+/*Initialisation d'un sol pour le rendu*/
+function initGround() {
+    plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000, 10, 10), new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true }));
+    plane.name = 'Sol';
+    plane.position.set(0, 0, 0);
+    plane.rotation.x = 1.57;
+    plane.name = 'Sol';
+    scene.add(plane);
+}
+
+/* Charger un fichier Collada */
+function initCollada() {
+    var loader = new THREE.ColladaLoader();
+    loader.options.convertUpAxis = true;
+    loader.load('collada/collada.dae', function(collada) {
+
+        var dae = collada.scene;
+
+        dae.position = plane.position //on le pose sur le sol
+        dae.scale.set(1.5, 1.5, 1.5);
+
+        scene.add(dae);
+    });
+}
+
+/*Definition du marqueur lorsqu'on clique*/
+function initMarker() {
+    marker = new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshLambertMaterial({ color: 0xff0000 }));
+    scene.add(marker);
+}
+
+/*Initialisation du rendu*/
+function initRenderer() {
+    //Ajouter des aides : les axes et une grille
+    // var axes = new THREE.AxisHelper(50);
+    // axes.position.set(0,0,0);
+    // scene.add(axes);
+    // var gridXZ = new THREE.GridHelper(100, 10);
+    // gridXZ.position.set(0,0,0 );
+    // scene.add(gridXZ);
+
+    //Rendu pour collada
+    renderer = new THREE.WebGLRenderer({ antialias: false });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(width, height);
+    container.appendChild(renderer.domElement);
+
+    //Evenement lorsque que l'on clique sur le click droit de la souris dans le container
+    container.addEventListener('contextmenu', onDocumentRightClick, false);
+
+    window.addEventListener('resize', onWindowResize, false);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
 
 
-	/*Fonction qui redimensionne la scene quand on redimensionne la fenêtre */
-	function onWindowResize() {
-		width = container.clientWidth; //pour que le menu de droite reste affiché
-		camera.aspect = width / height;
-		camera.updateProjectionMatrix();
-		
-		renderer.setSize( width, height );
-	}
+/*Fonction qui redimensionne la scene quand on redimensionne la fenêtre */
+function onWindowResize() {
+    width = container.clientWidth; //pour que le menu de droite reste affiché
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
 
-	/*Fonction qui ajoute une particule à l'endroit cliqué*/
-	function onDocumentRightClick( event ) {
-		event.preventDefault();
-		
-		generalInfosNode.innerHTML = '';
-		vueInfosNode.innerHTML = '';
-		
-		//Definition de la zone ou l'utilisateur a cliqué
-		var x = ( (event.clientX-container.offsetLeft)/ width ) * 2 - 1;
-		var y = - ( event.clientY / height ) * 2 + 1;
-		
-		//Définition de notre vecteur de direction à ces valeurs initiales
-		directionVector.set(x, y, 1);
+    renderer.setSize(width, height);
+}
 
-		//Ne pas projeter
-		projector.unprojectVector(directionVector, camera);
+/*Fonction qui ajoute une particule à l'endroit cliqué*/
+function onDocumentRightClick(event) {
+    event.preventDefault();
 
-		//Soustraire le vecteur représentant la position de la caméra
-		directionVector.sub(camera.position);
+    generalInfosNode.innerHTML = '';
+    vueInfosNode.innerHTML = '';
 
-		//Permet de normalisé le vecteur, pour éviter de grands nombres de la projection et de la soustraction
-		directionVector.normalize();
+    //Definition de la zone ou l'utilisateur a cliqué
+    var x = ((event.clientX - container.offsetLeft) / width) * 2 - 1;
+    var y = -(event.clientY / height) * 2 + 1;
 
-		// On initialise le lancer de rayon (raycaster)
-		raycaster.set(camera.position, directionVector);
+    //Définition de notre vecteur de direction à ces valeurs initiales
+    directionVector.set(x, y, 1);
 
-		// On appel le lancer de rayon
-		// (Le second argument signifie "recursif")
-		var intersects = raycaster.intersectObjects(scene.children, true);
+    //Ne pas projeter
+    projector.unprojectVector(directionVector, camera);
 
-		if (intersects.length>0) {
-			//On positionne le marqueur à l'endroit cliqué
-			marker.position.x = intersects[0].point.x;
-			marker.position.y = intersects[0].point.y;
-			marker.position.z = intersects[0].point.z;
-			
-			//On affiche les informations
-			displayInformations(intersects);
-		}
-	}
-	
-	/*Fonction qui affiche les informations spécifiques à l'élément du fichier séléctionné dans les menus*/
-	function displayInformations(intersects) {
+    //Soustraire le vecteur représentant la position de la caméra
+    directionVector.sub(camera.position);
 
-		/*Parcourir le  fichier collada à la recherche de la balise création*/
-		var creation_temp = '';
-		var creation = '';
-		var creation_temp = $(result).find('created').text();
-		if (creation_temp != '') {
-			creation = creation_temp.replace("T", " à ");
-		}
-		
-		var target = intersects[0].object;
-		generalInfosNode.innerHTML = '<h2>ID: ' + target.id + '</h2>' +
-									 '<h2>Date de création: ' + creation + '</h2>';
-	}
-	
-	/*Fonction appelée depuis l'interface qui permet de zoomer*/
-	function zoomIn() {
-		camera.matrix.extractBasis(right,up,at);
-        camera.position.add(at.multiplyScalar(-5));
-        camera.matrix.extractBasis(right,up,at);
-	}
-	
-	/*Fonction appelée depuis l'interface qui permet de dézoomer*/
-	function zoomOut() {
-		camera.matrix.extractBasis(right,up,at);
-        camera.position.add(at.multiplyScalar(+5));
-        camera.matrix.extractBasis(right,up,at); 
-	}
+    //Permet de normalisé le vecteur, pour éviter de grands nombres de la projection et de la soustraction
+    directionVector.normalize();
 
-	/*Fonction appelée depuis l'interface qui permet de faire une rotation vers le haut*/
-	function moveUp() {
-		camera.matrix.extractBasis(right,up,at);
-		camera.position.add(up.multiplyScalar(5));
-        camera.matrix.extractBasis(right,up,at);  
-	}
-	
-	/*Fonction appelée depuis l'interface qui permet de faire une rotation vers la gauche*/
-	function moveLeft() {
-		camera.matrix.extractBasis(right,up,at);
-        camera.position.add(right.multiplyScalar(-5));
-        camera.matrix.extractBasis(right,up,at); 
-	}
+    // On initialise le lancer de rayon (raycaster)
+    raycaster.set(camera.position, directionVector);
 
-	/*Fonction appelée depuis l'interface qui permet de faire une rotation vers la droite*/
-	function moveRight() {
-		camera.matrix.extractBasis(right,up,at);
-		camera.position.add(right.multiplyScalar(5));
-        camera.matrix.extractBasis(right,up,at); 
-	}
+    // On appel le lancer de rayon
+    // (Le second argument signifie "recursif")
+    var intersects = raycaster.intersectObjects(scene.children, true);
 
-	/*Fonction appelée depuis l'interface qui permet de faire une rotation vers le bas*/
-	function moveDown() {
-		camera.matrix.extractBasis(right,up,at);
-		camera.position.add(up.multiplyScalar(-5));
-        camera.matrix.extractBasis(right,up,at); 
-	}
+    if (intersects.length > 0) {
+        //On positionne le marqueur à l'endroit cliqué
+        marker.position.x = intersects[0].point.x;
+        marker.position.y = intersects[0].point.y;
+        marker.position.z = intersects[0].point.z;
 
-	function animate(){
-		var delta = clock.getDelta();
-		requestAnimationFrame( animate );
-		controls.update();
-		render(delta);
-	}
+        //On affiche les informations
+        displayInformations(intersects);
+    }
+}
 
-	function render(delta){
-		renderer.render( scene, camera );
-	}
+/*Fonction qui affiche les informations spécifiques à l'élément du fichier séléctionné dans les menus*/
+function displayInformations(intersects) {
+
+    /*Parcourir le  fichier collada à la recherche de la balise création*/
+    var creation_temp = '';
+    var creation = '';
+    var creation_temp = $(result).find('created').text();
+    if (creation_temp != '') {
+        creation = creation_temp.replace("T", " à ");
+    }
+
+    var target = intersects[0].object;
+    generalInfosNode.innerHTML = '<h2>ID: ' + target.id + '</h2>' +
+        '<h2>Date de création: ' + creation + '</h2>';
+}
+
+/*Fonction appelée depuis l'interface qui permet de zoomer*/
+function zoomIn() {
+    camera.matrix.extractBasis(right, up, at);
+    camera.position.add(at.multiplyScalar(-5));
+    camera.matrix.extractBasis(right, up, at);
+}
+
+/*Fonction appelée depuis l'interface qui permet de dézoomer*/
+function zoomOut() {
+    camera.matrix.extractBasis(right, up, at);
+    camera.position.add(at.multiplyScalar(+5));
+    camera.matrix.extractBasis(right, up, at);
+}
+
+/*Fonction appelée depuis l'interface qui permet de faire une rotation vers le haut*/
+function moveUp() {
+    camera.matrix.extractBasis(right, up, at);
+    camera.position.add(up.multiplyScalar(5));
+    camera.matrix.extractBasis(right, up, at);
+}
+
+/*Fonction appelée depuis l'interface qui permet de faire une rotation vers la gauche*/
+function moveLeft() {
+    camera.matrix.extractBasis(right, up, at);
+    camera.position.add(right.multiplyScalar(-5));
+    camera.matrix.extractBasis(right, up, at);
+}
+
+/*Fonction appelée depuis l'interface qui permet de faire une rotation vers la droite*/
+function moveRight() {
+    camera.matrix.extractBasis(right, up, at);
+    camera.position.add(right.multiplyScalar(5));
+    camera.matrix.extractBasis(right, up, at);
+}
+
+/*Fonction appelée depuis l'interface qui permet de faire une rotation vers le bas*/
+function moveDown() {
+    camera.matrix.extractBasis(right, up, at);
+    camera.position.add(up.multiplyScalar(-5));
+    camera.matrix.extractBasis(right, up, at);
+}
+
+function animate() {
+    var delta = clock.getDelta();
+    requestAnimationFrame(animate);
+    controls.update();
+    render(delta);
+}
+
+function render(delta) {
+    if (numCam == 1)
+        renderer.render(scene, camera1);
+    else if (numCam == 2)
+        renderer.render(scene, camera2);
+    else if (numCam == 3)
+        renderer.render(scene, camera3);
+    else if (numCam == 4)
+        renderer.render(scene, camera4);
+    else if (numCam == 5)
+        renderer.render(scene, camera5);
+    else
+        renderer.render(scene, camera);
+}
