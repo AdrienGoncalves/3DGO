@@ -16,7 +16,6 @@
     <script src="js/TrackballControls.js"></script>
 	<script src="js/Stats.js"></script>
 	<!--Nos fichiers javascript-->
-	<script src="[grp1]interface.js"></script>
 	<script src="[grp2]vues.js"></script>
 	<script src="[grp3]graphes.js"></script>
 	<script src="js/graph.js"></script>
