@@ -5,7 +5,7 @@
     <title>3D GO</title>
     <meta charset="utf-8">
 	<link rel="stylesheet" href="stylesheet.css"/>
-    <link rel="icon" type="image/ico" href="Images/logo_le2i.png"/>
+    <link rel="icon" type="image/ico" href="Images/logo_3DGO.png"/>
 	
 	<!--Bibliothèque principal-->
     <script src="js/Three.js"></script>
@@ -57,7 +57,6 @@
 							   <option>Caméra 2</option>
 							   <option>Caméra 3</option>
 							   <option>Caméra 4</option>
-							   <option>Caméra 5</option>
 							</select>
 						<br />					
 						<script>
@@ -79,7 +78,6 @@
 							   <option>Caméra 2</option>
 							   <option>Caméra 3</option>
 							   <option>Caméra 4</option>
-							   <option>Caméra 5</option>
 							</select>
 						</div>
 						<br />
@@ -102,7 +100,6 @@
 							   <option>Caméra 2</option>
 							   <option>Caméra 3</option>
 							   <option>Caméra 4</option>
-							   <option>Caméra 5</option>
 							</select>
 						</div>
 						<br />
@@ -206,25 +203,25 @@
 			<h3>Tutoriel</h3>
 			<p>Bienvenue dans 3DGO !</p>
 			<p>3DGO vous permet d'afficher vos fichiers COLLADA.</p>
-			<p>Pour cela rien de plus simple : cliquez sur "Choississez un fichier" et séléctionnez votre fichier COLLADA puis cliquer sur "Envoyer". L'application va ensuite importer le fichier puis va l'afficher.</p>
-			<p>Pour intéragir avec le fichier :</p>
+			<p>Pour cela rien de plus simple : cliquez sur "Choississez un fichier" et sélectionnez votre fichier COLLADA puis cliquer sur "Envoyer". L'application va ensuite importer le fichier puis va l'afficher.</p>
+			<p>Pour interagir avec le fichier :</p>
 			<ul>
-				<li><u>Pour tourner autour de l'objet :</u> Clique gauche et déplacer la souris ou vous pouvez utiliser les flêches de l'interface.</li>
-				<li><u>Pour zoomer/dézoomer :</u> Si vous êtes sur mozilla firefox vous pouvez utiliser la molette de la souris, sinon vous pouvez utiliser les loupes de l'interface.</li>
-				<li><u>Pour afficher des informations sur l'objet :</u> Vous pouvez faire une clique droit sur le fichier.</li>
+				<li><u>Pour tourner autour de l'objet :</u> Clic gauche et déplacer la souris ou vous pouvez utiliser les flèches de l'interface.</li>
+				<li><u>Pour zoomer/dézoomer :</u> Si vous êtes sur Mozilla Firefox vous pouvez utiliser la molette de la souris, sinon vous pouvez utiliser les loupes de l'interface.</li>
+				<li><u>Pour afficher des informations sur l'objet :</u> Vous pouvez faire un clic droit sur le fichier.</li>
 			</ul>
 			<p>Pour afficher les caméras :</p>
 			<ul>
-				<li>Cocher "Activer la vue caméra" puis choississez la caméra que vous souhaitez afficher.</li>
-				<li>Répéter l'action pour le nombre de caméra que vous voulez afficher (4 maximum).</li>
+				<li>Cochez "Activer la vue caméra" puis choisissez la caméra que vous souhaitez afficher.</li>
+				<li>Répéter l'action pour le nombre de caméras que vous voulez afficher (4 maximum).</li>
 			</ul>
 			<p>Pour afficher le plus court chemin entre 2 portes :</p>
 			<p>Pour cela il faut importer le fichier XML associé à votre fichier COLLADA.</p>
 			<ul>
-				<li>Cliquer sur "Choississez un fichier" puis choississez le fichier XML associé puis cliquer sur "Envoyer".</li>
-				<li>Cliquer sur "Créer les portes" pour générer les portes du fichier, une fenêtre va afficher la liste des portes générés ainsi que leurs coordonnées.</li>
-				<li>Entrer les numéros des 2 portes dont vous souhaitez connaitre le plus courts chemin puis faites générer chemin.</li>
-				<li>Une nouvelle fenêtre affichant le plus court chemin est apparu.</li>
+				<li>Cliquez sur "Choississez un fichier" puis choississez le fichier XML associé puis cliquez sur "Envoyer".</li>
+				<li>Cliquer sur "Créer les portes" pour générer les portes du fichier, une fenêtre va afficher la liste des portes générées ainsi que leurs coordonnées.</li>
+				<li>Entrer les numéros des 2 portes dont vous souhaitez connaitre le plus court chemin puis faites générer chemin.</li>
+				<li>Une nouvelle fenêtre affichant le plus court chemin est apparue.</li>
 			</ul>
 			<p>Bonne utilisation !</p>
 		</div>
@@ -235,9 +232,9 @@
 		<div>	
 			<a href="#close" title="Fermer" class="close">X</a>
 			<h3>À propos</h3>
-			<p>3DGO à été développée par : <a href="https://www.linkedin.com/in/dylan-barquilla-5aa512b3" target="_blank">Barquilla Dylan</a>, <a href="https://www.linkedin.com/in/elo%C3%AFse-grillet-1b5884133" target="_blank">Grillet Éloïse</a>, <a href="https://www.linkedin.com/in/adrien-goncalves-08ba70120" target="_blank">Goncalves Adrien</a>, <a href="https://www.linkedin.com/in/gautier-kasperek-086884133" target="_blank">Kasperek Gautier</a>, <a href="https://www.linkedin.com/in/lucas-lamarque-820884133" target="_blank">Lamarque Lucas</a>, <a href="https://www.linkedin.com/in/legoffmael" target="_blank">Le Goff Maël</a> et <a href="https://www.linkedin.com/in/enzo-menassol-3b31a1136" target="_blank">Mennassol Enzo</a>;
-			tous étudiants de 2ème année à l'IUT informatique de Dijon (2016/2017), dans le cadre de notre projet de 2ème année.</p>
-			<p>Nous avons été encadrés par <a href="https://www.linkedin.com/in/arnaudrolet" target="_blank">Rolet Arnaud</a> et <a href="https://www.linkedin.com/in/christophenicolle" target="_blank">Nicolle Christophe</a>, appartenants au laboratoire <a href="https://checksem.u-bourgogne.fr/#/home" target="_blank">Checksem</a>.</p>
+			<p>3DGO a été développée par : <a href="https://www.linkedin.com/in/dylan-barquilla-5aa512b3" target="_blank">Barquilla Dylan</a>, <a href="https://www.linkedin.com/in/elo%C3%AFse-grillet-1b5884133" target="_blank">Grillet Éloïse</a>, <a href="https://www.linkedin.com/in/adrien-goncalves-08ba70120" target="_blank">Goncalves Adrien</a>, <a href="https://www.linkedin.com/in/gautier-kasperek-086884133" target="_blank">Kasperek Gautier</a>, <a href="https://www.linkedin.com/in/lucas-lamarque-820884133" target="_blank">Lamarque Lucas</a>, <a href="https://www.linkedin.com/in/legoffmael" target="_blank">Le Goff Maël</a> et <a href="https://www.linkedin.com/in/enzo-menassol-3b31a1136" target="_blank">Mennassol Enzo</a>;
+			tous étudiants de 2e année à l'IUT informatique de Dijon (2016/2017), dans le cadre de notre projet de 2e année.</p>
+			<p>Nous avons été encadrés par <a href="https://www.linkedin.com/in/arnaudrolet" target="_blank">Rolet Arnaud</a> et <a href="https://www.linkedin.com/in/christophenicolle" target="_blank">Nicolle Christophe</a>, appartenant au laboratoire <a href="https://checksem.u-bourgogne.fr/#/home" target="_blank">Checksem</a>.</p>
 		</div>
 	</div>
 
@@ -248,7 +245,7 @@
 	<div class="menuDroite">
 		<div class="menu3" id="menu3">
 			<nav>		
-				<h1>Informations général</h1>
+				<h1>Informations générales</h1>
 				<nav id="nav1">		
 				
 				
