@@ -113,6 +113,7 @@
 					
 					<br/><br/>
 					<!-- Importation du fichier collada-->
+					<!-- Attention à ce que votre PHP autorise l'upload de la taille de fichier (post_max_size et upload_max_filesize)-->
 					<form method="post" action="index.php" enctype="multipart/form-data">
 						 <label for="fichier_collada">Fichier Collada (.dae) :</label><br />
 						 <input type="file" name="fichier_collada" id="fichier_collada" accept=".dae"/><br />
