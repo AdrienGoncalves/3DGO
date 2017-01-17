@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-    <title>3D GO</title>
+    <title>3DGO</title>
     <meta charset="utf-8">
 	<link rel="stylesheet" href="stylesheet.css"/>
     <link rel="icon" type="image/png" href="Images/logo_3DGO.png"/>
