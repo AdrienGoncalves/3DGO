@@ -5,7 +5,7 @@
     <title>3D GO</title>
     <meta charset="utf-8">
 	<link rel="stylesheet" href="stylesheet.css"/>
-    <link rel="icon" type="image/ico" href="Images/logo_3DGO.png"/>
+    <link rel="icon" type="image/png" href="Images/logo_3DGO.png"/>
 	
 	<!--Bibliothèque principal-->
     <script src="js/Three.js"></script>
